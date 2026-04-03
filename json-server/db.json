@@ -10,6 +10,12 @@
     {
       "name": "Dhiraj",
       "id": "1"
+    },
+    {
+      "name": "dhiru",
+      "age": 21,
+      "description": "hello i am dhiraj",
+      "id": "MBF1CFMCOD8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

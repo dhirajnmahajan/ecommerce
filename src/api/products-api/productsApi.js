@@ -1,4 +1,4 @@
-import api from "./createApi";
+import api from "../createApi";
 
 export const getProducts = async () => {
     try {
