@@ -4,18 +4,52 @@
       "id": "1",
       "name": "dhiraj",
       "description": "hwllo this is description"
+    },
+    {
+      "description": "formal shirt",
+      "price": 100,
+      "pname": "shirt",
+      "image": "",
+      "id": "Ki2-EIYdckA"
+    },
+    {
+      "description": "gsfgfd",
+      "price": 100,
+      "pname": "re",
+      "image": "",
+      "id": "HJK9peTqxj8"
+    },
+    {
+      "description": "gsfgfd",
+      "price": 100,
+      "pname": "re",
+      "image": "",
+      "id": "_6ErtRWR2P4"
+    },
+    {
+      "description": "gsfgfd",
+      "price": 100,
+      "pname": "re",
+      "image": "",
+      "id": "BH8h7FAB6g8"
     }
   ],
   "users": [
     {
-      "name": "Dhiraj",
-      "id": "1"
+      "password": "pass123",
+      "mobile": 5555555555,
+      "email": "company1@gmail.com",
+      "name": "Dhiraj Mahajan",
+      "image": "",
+      "id": "YjYkRJdJwck"
     },
     {
-      "name": "dhiru",
-      "age": 21,
-      "description": "hello i am dhiraj",
-      "id": "MBF1CFMCOD8"
+      "password": "abc123",
+      "mobile": 6565653636,
+      "email": "pratik12@gmail.com",
+      "name": "dg",
+      "image": "",
+      "id": "UYP3qmiFDw0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

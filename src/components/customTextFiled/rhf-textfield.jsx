@@ -13,7 +13,7 @@ export default function RHFTextfield({ control, label, name, type, ...other }) {
                     fullWidth
                     name={name}
                     label={label}
-                    error={error}
+                    error={!!error}
                     type={type}
                     helperText={error && error?.message}
                     onChange={(e) => field.onChange(e.target.value)}
