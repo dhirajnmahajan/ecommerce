@@ -2,9 +2,10 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
-import { Button, Card, Container, Grid, Stack, Typography, } from "@mui/material";
+import { Avatar, Button, Card, Container, Grid, Stack, Typography, } from "@mui/material";
 
 import RHFTextfield from "../../components/customTextFiled/rhf-textfield";
+import RHFImageUpload from "../../components/customImageUpload/rhf-image-upload"
 import { addProduct } from "../../api/products-api/productsApi";
 
 export default function ProductNewEditForm() {
@@ -14,7 +15,7 @@ export default function ProductNewEditForm() {
         pname: Yup.string().required('Prodcut name is required'),
         price: Yup.number().required('Product price is required').typeError("Price must be a number"),
         description: Yup.string().required('description is required'),
-        // image: Yup.string().required('upload product image')
+        image: Yup.string().required('upload product image')
     })
 
     const defaultValues = {
@@ -28,7 +29,7 @@ export default function ProductNewEditForm() {
         resolver: yupResolver(productSchema),
         defaultValues
     })
-    const { control, handleSubmit, setValue, formState: { isSubmitting } } = methods;
+    const { control, handleSubmit, formState: { isSubmitting } } = methods;
 
     const onSubmit = handleSubmit(async (productData) => {
         // console.log("Product data", productData);
@@ -59,6 +60,27 @@ export default function ProductNewEditForm() {
                             <RHFTextfield name='price' label="Price" control={control} />
                             <RHFTextfield name='description' label="Description" control={control} />
                         </Stack>
+                        <Stack alignItems="center" spacing={2}>
+                            <Avatar
+                                // src={}
+                                variant="rounded"
+                                sx={{ width: 160, height: 160 }}
+                            >
+                            </Avatar>
+
+                            <Typography variant="subtitle2">
+                                JPG, PNG, GIF allowed
+                            </Typography>
+                            <Button
+                                variant="outlined"
+                                component="label"
+                            >
+                                Upload Image
+                                <RHFImageUpload name='image' control={control} type={"file"} accept={"image/*"} />
+                            </Button>
+
+                        </Stack>
+
                         <Button
                             type="submit"
                             size='large'
