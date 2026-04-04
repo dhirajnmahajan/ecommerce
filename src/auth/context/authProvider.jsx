@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./createAuthContext";
 import { addUser } from "../../api/auth/authApi";
+import { ConvertHashPassword } from "../authService";
 
 export default function AuthProvider({ children }) {
   const initialData = {
@@ -25,13 +26,17 @@ export default function AuthProvider({ children }) {
   }, []);
 
   // register user
-  const registerUser = async (formdata) => {
+  const registerUser = async (userData) => {
     try {
       // console.log("register user called");
       // console.log("registe 1", formdata);
-      if (!formdata) return;
+      if (!userData) return;
+
+      const hashPassword = await ConvertHashPassword(userData.password);
+
       const updatedUser = {
-        ...formdata,
+        ...userData,
+        password: hashPassword,
         roleValue: "user",
         kycStatus: "pending",
       };
@@ -49,15 +54,15 @@ export default function AuthProvider({ children }) {
   };
 
   // login
-  function loginUser(formdata) {
-    
-  }
+  function loginUser(userData) {}
 
   // logout function
   function logoutUser() {}
 
   return (
-    <AuthContext.Provider value={{ registerUser, loginUser }}>
+    <AuthContext.Provider
+      value={{ registerUser, loginUser, authenticated, user, logoutUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
