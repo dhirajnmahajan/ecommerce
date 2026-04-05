@@ -49,7 +49,7 @@ export default function Login() {
     try {
       await loginUser(userData);
       alert("Loggin succesfully");
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error) {
       console.log("product could not save", error);
       alert(error.message);
