@@ -3,7 +3,7 @@ import api from "../axiosInstance";
 export const getProducts = async () => {
   try {
     const res = await api.get("/products");
-    console.log(res.data);
+    // console.log(res.data);
 
     return res.data;
   } catch (error) {

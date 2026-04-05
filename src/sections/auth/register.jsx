@@ -25,28 +25,41 @@ export default function Register() {
   const navigate = useNavigate();
 
   const userSchema = Yup.object().shape({
-    name: Yup.string().required(" Name is required"),
+    name: Yup.string()
+      .min(3, "Name must be at least 3 characters")
+      .required("Name is required"),
+
     email: Yup.string()
-      .email("enter valild email")
-      .required("email is required"),
-    mobile: Yup.number()
-      .required("Mobile number is required")
-      .typeError("Mobile number must be a number")
-      .min(10, "Mobile number must be 10 digits"),
+      .email("Enter valid email")
+      .required("Email is required"),
+
+    mobile: Yup.string()
+      .matches(/^[6-9]\d{9}$/, "Enter valid 10-digit mobile number")
+      .required("Mobile number is required"),
+
     pan: Yup.string()
-      .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Invalid PAN format")
-      .required("Pan Number is required"),
-    password: Yup.string().required("password is required"),
-    image: Yup.string().required("upload avatar image"),
+      .transform((value) => value?.toUpperCase())
+      .matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/, "Enter valid PAN (ABCDE1234F)")
+      .required("PAN number is required"),
+
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+
+    image: Yup.mixed().test(
+      "required",
+      "Image is required",
+      (value) => !!value,
+    ),
   });
 
   const defaultValues = {
     name: "",
     email: "",
     mobile: "",
+    pan: "",
     password: "",
     image: "",
-    pan: "",
   };
 
   const methods = useForm({
@@ -55,15 +68,18 @@ export default function Register() {
   });
   const {
     control,
+    watch,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
+
+  const imageFile = watch("image");
 
   const onSubmit = handleSubmit(async (userData) => {
     // console.log("Product data", userData);
     try {
       await registerUser(userData);
-      navigate("/", { replace: true });
+      navigate("/login", { replace: true });
     } catch (error) {
       console.log("user not register", error);
     }
@@ -79,24 +95,7 @@ export default function Register() {
                 Registeration Form (KYC)
               </Typography>
             </Stack>
-            <Stack alignItems="center" spacing={2}>
-              <Avatar
-                // src={}
-                variant="rounded"
-                sx={{ width: 160, height: 160 }}
-              ></Avatar>
 
-              <Typography variant="subtitle2">JPG, PNG, GIF allowed</Typography>
-              <Button variant="outlined" component="label">
-                Upload Image
-                <RHFImageUpload
-                  name="image"
-                  control={control}
-                  type={"file"}
-                  accept={"image/*"}
-                />
-              </Button>
-            </Stack>
             <Stack spacing={2}>
               <RHFTextfield name="name" label="Full Name" control={control} />
               <RHFTextfield name="email" label="Email" control={control} />
@@ -108,6 +107,24 @@ export default function Register() {
                 control={control}
               />
             </Stack>
+            <Stack alignItems="center" spacing={2}>
+              <Avatar
+                src={imageFile || ""}
+                variant="rounded"
+                sx={{ width: 160, height: 160 }}
+              ></Avatar>
+
+              <Typography variant="subtitle2">JPG, PNG allowed</Typography>
+              <Button variant="outlined" component="label">
+                Upload Pan Card
+                <RHFImageUpload
+                  name="image"
+                  control={control}
+                  type={"file"}
+                  accept={"image/*"}
+                />
+              </Button>
+            </Stack>
             <Button
               disabled={isSubmitting}
               type="submit"
@@ -116,6 +133,18 @@ export default function Register() {
             >
               Register
             </Button>
+            <Stack alignItems="center" sx={{ mt: 2 }}>
+              <Typography variant="body2">
+                Don't have an account?{" "}
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={() => navigate("/login")}
+                >
+                  Login here
+                </Button>
+              </Typography>
+            </Stack>
           </Stack>
         </form>
       </Card>

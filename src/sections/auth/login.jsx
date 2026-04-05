@@ -84,6 +84,18 @@ export default function Login() {
             >
               Login
             </Button>
+            <Stack alignItems="center" sx={{ mt: 2 }}>
+              <Typography variant="body2">
+                Don't have an account?{" "}
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={() => navigate("/register")}
+                >
+                  Register here
+                </Button>
+              </Typography>
+            </Stack>
           </Stack>
         </form>
       </Card>
