@@ -16,11 +16,13 @@ import {
 import RHFTextfield from "../../components/customTextFiled/rhf-textfield";
 import RHFImageUpload from "../../components/customImageUpload/rhf-image-upload";
 import { useContext } from "react";
-import { AuthContext } from "../../auth/context/createAuthContext";
+import { AuthContext } from "../../auth/authContext/createAuthContext";
+import { useNavigate } from "react-router-dom";
 // import { addUser } from "../../api/auth/authApi";
 
 export default function Register() {
   const { registerUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const userSchema = Yup.object().shape({
     name: Yup.string().required(" Name is required"),
@@ -61,8 +63,9 @@ export default function Register() {
     // console.log("Product data", userData);
     try {
       await registerUser(userData);
+      navigate("/", { replace: true });
     } catch (error) {
-      console.log("product coud not save", error);
+      console.log("user not register", error);
     }
   });
 
@@ -104,7 +107,6 @@ export default function Register() {
                 label="Password"
                 control={control}
               />
-              {/* <RHFTextfield name='password' label="Password" control={control} /> */}
             </Stack>
             <Button
               disabled={isSubmitting}

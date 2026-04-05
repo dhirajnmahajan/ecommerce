@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardMedia,
@@ -9,7 +9,27 @@ import {
   Box,
 } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../auth/authContext/createAuthContext";
+import { CartContext } from "../../auth/cartContext/cart-context";
+
 function ProductCard({ product }) {
+  const navigate = useNavigate();
+  const { isKycApprove } = useContext(AuthContext);
+  const { addToCart } = useContext(CartContext);
+
+  const handleBuy = () => {
+    if (isKycApprove) {
+      navigate(`/checkout/${product.id}`);
+    } else {
+      navigate("/review");
+    }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product);
+
+  };
   return (
     <Card
       sx={{
@@ -24,14 +44,16 @@ function ProductCard({ product }) {
         component="img"
         image={product.image}
         sx={{
-          height: 180,
+          height: 140,
           width: "100%",
           objectFit: "cover",
         }}
       />
 
       <CardContent sx={{ flexGrow: 1, justifyItems: "flex-start" }}>
-        <Typography variant="h6">Product: {product.pname}</Typography>
+        <Typography variant="h6" fontWeight={600}>
+          Product: {product.pname}
+        </Typography>
 
         <Typography variant="body1">Price: {product.price}</Typography>
 
@@ -40,13 +62,9 @@ function ProductCard({ product }) {
         </Typography>
       </CardContent>
 
-      <Box sx={{ p: 1 }}>
+      <Box sx={{ p: 1, m: "auto" }}>
         <CardActions>
-          <Button
-            variant="outlined"
-            size="small"
-            // onClick={}
-          >
+          <Button variant="outlined" size="small" onClick={handleAddToCart}>
             Add to Cart
           </Button>
 
@@ -54,7 +72,7 @@ function ProductCard({ product }) {
             variant="contained"
             size="small"
             color="primary"
-            // onClick={}
+            onClick={handleBuy}
           >
             Proceed to Buy
           </Button>

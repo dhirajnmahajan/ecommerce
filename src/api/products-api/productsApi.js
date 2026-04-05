@@ -1,4 +1,4 @@
-import api from "../createApi";
+import api from "../axiosInstance";
 
 export const getProducts = async () => {
   try {
@@ -27,16 +27,6 @@ export const updateProduct = async (id, productData) => {
     return res.data;
   } catch (error) {
     console.log("error at updating product", error);
-    throw new error();
-  }
-};
-
-export const deleteProduct = async (id) => {
-  try {
-    const res = await api.delete(`/products/${id}`);
-    return res.data;
-  } catch (error) {
-    console.log("error while deleting product", error);
     throw new error();
   }
 };
