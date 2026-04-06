@@ -1,16 +1,43 @@
-# React + Vite
+# Ecommerce Deployed Project 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+This project is devloped like small scale ecommerce application by using React for frontend and JSON server for backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Currently, deployed on these platform:
 
-## React Compiler
+- [Frontend](https://ecommerce-omega-one-44.vercel.app/) uses [Vercel]()
+- [Backend](https://jsonserver-ecommerce-gbve.onrender.com/) uses [Render]()
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+#### Endpoints 
 
-## Expanding the ESLint configuration
+- register : /register
+- login : /login
+- home (product list) : /
+- cart page : /cart
+- review card : /review
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Testing
+
+#### Testing for approved user - 'Credentials'
+Email :
+```
+test@gmail.com
+```
+Password :
+```
+123
+```
+
+#### Testing for (kyc Status) pending user - 'Credentials'
+Email :
+```
+abc@gmail.com
+```
+Password :
+```
+pass123
+```
+
+## Author
+
+- [Dhiraj Mahajan](https://github.com/dhirajnmahajan)
