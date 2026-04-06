@@ -7,6 +7,7 @@ import {
   CardActions,
   Button,
   Box,
+  Stack,
 } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
@@ -28,7 +29,6 @@ function ProductCard({ product }) {
 
   const handleAddToCart = () => {
     addToCart(product);
-
   };
   return (
     <Card
@@ -52,14 +52,22 @@ function ProductCard({ product }) {
 
       <CardContent sx={{ flexGrow: 1, justifyItems: "flex-start" }}>
         <Typography variant="h6" fontWeight={600}>
-          Product: {product.pname}
+          {product.pname}
         </Typography>
-
-        <Typography variant="body1">Price: {product.price}</Typography>
 
         <Typography variant="body2" color="text.secondary">
           {product.description}
         </Typography>
+
+        <Stack mt={1}>
+          <Typography variant="body1" fontWeight={550}>
+            Rs. {product.price}
+          </Typography>
+
+          <Typography variant="subtitle2">
+            Stocks : {product.quantity}
+          </Typography>
+        </Stack>
       </CardContent>
 
       <Box sx={{ p: 1, m: "auto" }}>

@@ -1,5 +1,5 @@
-import { Box, Button, Container, Grid, Stack } from "@mui/material";
-import React, { useEffect, useContext } from "react";
+import { Box, Button, Container, Grid, Stack, TextField } from "@mui/material";
+import React, { useEffect, useContext, useState } from "react";
 
 // import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../api/products-api/productsApi";
@@ -13,6 +13,9 @@ function ProductList() {
 
   const { authenticated, logoutUser } = useContext(AuthContext);
   const { product, setProduct } = useContext(ProductContext);
+
+  const [searchItem, setSearchItem] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
   const fetchProducts = async () => {
     try {
@@ -40,6 +43,18 @@ function ProductList() {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(searchItem), 500);
+    return () => clearTimeout(t);
+  }, [searchItem]);
+
+  const filteredProduct = product.filter((item) => {
+    const nameMatch = item.pname
+      .toLowerCase()
+      .includes(debouncedSearch.toLowerCase());
+    return nameMatch;
+  });
+
   return (
     <>
       <Container maxWidth="lg">
@@ -61,13 +76,21 @@ function ProductList() {
             </Button>
           </Box>
         </Stack>
+
+        <Stack mt={3} direction="row" spacing={2} justifyContent="center">
+          <TextField
+            value={searchItem}
+            placeholder="Search products..."
+            onChange={(e) => setSearchItem(e.target.value)}
+          />
+        </Stack>
         <Grid
           container
           spacing={2}
           justifyContent={{ xs: "center", md: "flex-start" }}
           sx={{ p: 2, m: 2 }}
         >
-          {product?.map((item, index) => (
+          {filteredProduct?.map((item, index) => (
             <Grid
               item
               key={`${item.id}-${index}`}
