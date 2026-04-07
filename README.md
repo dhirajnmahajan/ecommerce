@@ -25,7 +25,7 @@ test@gmail.com
 ```
 Password :
 ```
-123
+pass123
 ```
 
 #### Testing for (kyc Status) pending user - 'Credentials'
